@@ -1,0 +1,32 @@
+# ==============================================================================
+# Coffee Leaf Disease Detection & Diagnosis AI System
+# Local Python Requirements
+#
+# NOTE: Kaggle GPU/CPU notebooks already come with TensorFlow, NumPy, Pandas,
+# Matplotlib, Seaborn, and Scikit-Learn preinstalled.
+# Install these packages in your local virtual environment for data preparation,
+# local Jupyter execution, and the Streamlit web application.
+# ==============================================================================
+
+# Core Deep Learning Framework
+tensorflow>=2.15.0,<2.18.0
+
+# Web Application
+streamlit>=1.35.0
+
+# Image Processing & Utilities
+pillow>=10.2.0
+numpy>=1.24.3,<2.0.0
+
+# Data Analysis & Metrics
+pandas>=2.1.0
+scikit-learn>=1.4.0
+
+# Data Visualization
+matplotlib>=3.8.0
+seaborn>=0.13.0
+
+# Notebook Generation & Jupyter Kernel
+nbformat>=5.9.2
+ipykernel>=6.29.0
+jupyter>=1.0.0
