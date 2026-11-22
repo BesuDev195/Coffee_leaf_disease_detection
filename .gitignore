@@ -6,6 +6,9 @@
 raw_ds/
 dataset_custom/
 dataset_unified/
+spider_mites_dataset/
+spider_mites_raw/
+spider_mites_100/
 *.zip
 
 # Trained Model Weights & Checkpoints (Store on Kaggle or releases)
