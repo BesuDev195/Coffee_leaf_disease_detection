@@ -4,19 +4,17 @@
 #
 # NOTE: Kaggle GPU/CPU notebooks already come with TensorFlow, NumPy, Pandas,
 # Matplotlib, Seaborn, and Scikit-Learn preinstalled.
-# Install these packages in your local virtual environment for data preparation,
-# local Jupyter execution, and the Streamlit web application.
 # ==============================================================================
 
 # Core Deep Learning Framework
-tensorflow>=2.15.0,<2.18.0
+tensorflow>=2.15.0
 
 # Web Application
 streamlit>=1.35.0
 
 # Image Processing & Utilities
 pillow>=10.2.0
-numpy>=1.24.3,<2.0.0
+numpy>=1.24.3
 
 # Data Analysis & Metrics
 pandas>=2.1.0

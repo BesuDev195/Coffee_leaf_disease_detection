@@ -21,8 +21,11 @@ coffee/
 ├── app.py                         # Interactive local Streamlit web application
 ├── class_indices.json             # Class-to-index mapping (updated by notebook)
 ├── generate_notebook.py           # Standalone Python script to generate the notebook
+├── process_custom_data.py         # Standardizes, resizes (224x224), labels & zips raw photos
 ├── README.md                      # Comprehensive documentation and setup guide
 ├── requirements.txt               # Pinned local dependencies
+├── dataset_custom/                # Processed custom dataset (224x224 JPEGs + annotations.csv)
+├── dataset_custom.zip             # Ready-to-upload zip archive for Kaggle
 └── rocole_coffee_disease_cnn.ipynb # Complete training pipeline (generated)
 ```
 
@@ -75,25 +78,40 @@ The system fuses two data sources inside the notebook:
 - **Structure**: Contains leaf photographs along with an annotations CSV file indicating disease status (`healthy`, `rust` severity levels, and `red spider mite`).
 - **Auto-Scanner**: The notebook automatically searches `/kaggle/input` (or local subfolders) for the CSV and images, maps all rust levels to `"rust"`, red spider mite to `"mites"`, and healthy to `"healthy"`.
 
-### Source B: Custom Field Photos (`dataset_custom/`)
-If you have captured your own Robusta leaf photos, organize them as follows:
+### Source B: Custom Field Photos (`raw_ds/` ➔ `dataset_custom/`)
+If you have captured your own Robusta leaf photos in `raw_ds/`, run the custom preprocessor script with degree augmentation:
+
+```bash
+# Default: 4 degree rotations (0°, 90°, 180°, 270°) -> 4x dataset multiplier
+python process_custom_data.py --input_dir raw_ds --output_dir dataset_custom --size 224
+
+# Or specify any custom degree rotations (e.g., 8 angles: 0, 45, 90, 135, 180, 225, 270, 315)
+python process_custom_data.py --degrees 0 45 90 135 180 225 270 315
+```
+
+This script:
+1. Generates **multi-degree rotations** (default: 0°, 90°, 180°, 270° — 4 orientation variants per leaf).
+2. Normalizes all image formats (`.jpg`, `.jpeg`, `.png`, `.webp`, `.avif`) to standard 3-channel **RGB JPEGs**.
+3. Applies **EXIF orientation correction** so camera photos are upright.
+4. Resizes all photos to exactly **224x224** using high-quality Lanczos resampling.
+5. Generates standard RoCoLe-compatible labels and rotation degrees in `dataset_custom/annotations.csv`.
+6. Detects duplicates and creates `dataset_custom.zip` ready for one-click upload to Kaggle.
 
 ```
 dataset_custom/
+├── annotations.csv          <- Metadata table with 'rotation_deg', 'healthy', 'mites', 'rust'
+├── dataset_summary.json
 ├── healthy/
-│   ├── leaf_001.jpg
-│   └── leaf_002.png
-├── rust/
-│   ├── rust_001.jpg
-│   └── rust_002.jpeg
-└── mites/
-    ├── mite_001.jpg
-    └── mite_002.png
+│   ├── custom_healthy_0001_deg000.jpg
+│   ├── custom_healthy_0001_deg090.jpg
+│   ├── custom_healthy_0001_deg180.jpg
+│   ├── custom_healthy_0001_deg270.jpg
+│   └── ...
+├── mites/
+│   └── ...
+└── rust/
+    └── ...
 ```
-
-- Supported extensions: `.jpg`, `.jpeg`, `.png` (case-insensitive).
-- Corrupted images are automatically detected with PIL and skipped.
-- If you do not have custom photos yet, Source B is optional; the pipeline runs seamlessly with RoCoLe alone.
 
 ---
 

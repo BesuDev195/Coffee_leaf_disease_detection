@@ -1,0 +1,32 @@
+# ==============================================================================
+# Git Ignore Rules for Coffee Leaf Disease AI Project
+# ==============================================================================
+
+# Datasets and Archives (Never push heavy images to GitHub)
+raw_ds/
+dataset_custom/
+dataset_unified/
+*.zip
+
+# Trained Model Weights & Checkpoints (Store on Kaggle or releases)
+*.keras
+*.h5
+*.tflite
+*.pt
+*.pth
+
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Jupyter & VS Code
+.ipynb_checkpoints/
+.vscode/
+
+# OS Specific
+.DS_Store
+Thumbs.db
