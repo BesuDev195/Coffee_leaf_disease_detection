@@ -3,6 +3,7 @@
 An end-to-end Computer Vision system for diagnosing foliar diseases and pests in **Robusta Coffee (*Coffea canephora*)** leaves using Transfer Learning with **MobileNetV2**.
 
 ---
+[https://www.kaggle.com/code/hyq3rfly/rocole]
 
 ## 🎯 Target Pathology Classes
 
